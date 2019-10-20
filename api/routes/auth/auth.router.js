@@ -1,4 +1,5 @@
 const authRouter = require('express').Router();
+const bcrypt = require('bcryptjs');
 const Users = require('../../../data/models/users.model');
 const generators = require('../../utils/generators');
 
@@ -63,3 +64,57 @@ function register(req, res) {
     })
     .catch(err => res.status(500).json(err));
 }
+
+/**
+ * @api {post} /api/auth/login Logs an User In
+ * @apiUse UserNotFound
+ * @apiUse NotAuthorized
+ * @apiVersion 1.0.0
+ * @apiName LoginUser
+ * @apiGroup Auth
+ * @apiPermission none
+ * @apiDescription Logs an User In
+ * @apiParam {String} username Username of the User
+ * @apiParam {String} password Password of the User
+ * @apiSuccess {Object} The Users welcome message, token, and user object
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "message": "Welcome back test",
+ *   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0IiwiaWF0IjoxNTcxNTE0NzcwLCJleHAiOjE1NzE2MDExNzB9.4iEFSx0i7V8cvYgZ0ALRAQG1aUTqqguQ5xDG86sgpjg",
+ *   "user": {
+ *      "id": 1,
+ *      "username": "test",
+ *      "created_at": "2019-10-19 18:21:31",
+ *      "updated_at": "2019-10-19 18:21:31"
+ *   }
+ * }
+ * @apiErrorExample {json} Username-Not-Found-Response
+ * {
+ *      "message": "Username is not in the system."
+ * }
+ * @apiErrorExample {json} Incorrect-Password
+ * {
+ *      "message": "Incorrect Password"
+ * }
+ */
+
+function login(req, res) {
+  Users.findBy({ username: req.body.username })
+    .then(user => {
+      if (user.length !== 0) {
+        if (bcrypt.compareSync(req.body.password, user[0].password)) {
+          const { password, ...validatedUser } = user[0];
+          res.json(validatedUser);
+        } else {
+          res.status(401).json({ message: 'Incorrect Password' });
+        }
+      } else {
+        res.status(404).json({ message: 'Username is not in the system' });
+      }
+    })
+    .catch(err => res.status(500).json(err));
+}
+
+authRouter.post('/register', register).post('/login', login);
+
+module.exports = authRouter;
