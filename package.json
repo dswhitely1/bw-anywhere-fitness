@@ -1,0 +1,11 @@
+{
+  "name": "anytimefitness",
+  "version": "1.0.0",
+  "description": "AnyTime Fitness for Lambda's Build Week API Repository",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Donald Whitely",
+  "license": "MIT"
+}
