@@ -1,5 +1,8 @@
 const express = require('express');
+const middleware = require('./middleware/middleware');
+const routes = require('./routes/index.routes');
 
 const server = express();
-server.use('/', (req, res) => res.send("It's Alive"));
+middleware(server);
+routes(server);
 module.exports = server;
