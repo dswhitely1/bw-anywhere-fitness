@@ -18,7 +18,6 @@ exports.up = function(knex) {
       .inTable('roles')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
-    tbl.timestamps(true, true);
   });
 };
 
