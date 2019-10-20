@@ -32,15 +32,24 @@ const generators = require('../../utils/generators');
  * @apiParam {String} lastName The New Users last name
  * @apiParam {String} email The New Users email
  * @apiParam {Integer} roleId The Users Role, 1 for Instructor, 2 for Client *Required
- *
+ * @apiParamExample {json} Sample-Request:
+ * {
+ *  "username": "don",
+ *  "password": "123456",
+ *  "roleId": 1
+ * }
  * @apiSuccess {Object} user The Newly Created User
  * @apiSuccessExample {json} Success-Response:
- * {
- *   "id": 2,
- *   "username": "testuser",
- *   "created_at": "2019-10-19 19:58:08",
- *   "updated_at": "2019-10-19 19:58:08"
- * }
+ *{
+ *  "id": 3,
+ *  "firstName": null,
+ *  "lastName": null,
+ *  "email": null,
+ *  "username": "don",
+ *  "created_at": "2019-10-20T22:59:45.794Z",
+ *  "updated_at": "2019-10-20T22:59:45.794Z",
+ *  "roleId": 1
+ *}
  * @apiErrorExample {json} Username-Already-Taken
  * {
  *      "message": "Username is already taken"
@@ -54,7 +63,16 @@ function register(req, res) {
         const newPassword = generators.password(req.body.password);
         Users.add({ ...req.body, password: newPassword })
           .then(saved => {
-            const { password, ...newUser } = saved[0];
+            const newUser = {
+              id: saved[0].id,
+              firstName: saved[0].firstName,
+              lastName: saved[0].lastName,
+              email: saved[0].email,
+              username: saved[0].username,
+              created_at: saved[0].created_at,
+              updated_at: saved[0].updated_at,
+              roleId: saved[0].roleId,
+            };
             res.status(201).json(newUser);
           })
           .catch(err => res.status(500).json(err));
@@ -62,7 +80,10 @@ function register(req, res) {
         res.status(400).json({ message: 'Username is already taken' });
       }
     })
-    .catch(err => res.status(500).json(err));
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 }
 
 /**
@@ -76,18 +97,27 @@ function register(req, res) {
  * @apiDescription Logs an User In
  * @apiParam {String} username Username of the User
  * @apiParam {String} password Password of the User
+ * @apiParamExample {json} Sample-Request:
+ * {
+ *  "username": "don",
+ *  "password": "123456"
+ * }
  * @apiSuccess {Object} The Users welcome message, token, and user object
  * @apiSuccessExample {json} Success-Response:
- * {
- *   "message": "Welcome back test",
- *   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0IiwiaWF0IjoxNTcxNTE0NzcwLCJleHAiOjE1NzE2MDExNzB9.4iEFSx0i7V8cvYgZ0ALRAQG1aUTqqguQ5xDG86sgpjg",
- *   "user": {
- *      "id": 1,
- *      "username": "test",
- *      "created_at": "2019-10-19 18:21:31",
- *      "updated_at": "2019-10-19 18:21:31"
- *   }
+ *{
+ * "message": "Welcome back don!",
+ * "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzE2MTI3MjcsImV4cCI6MTU3MTY5OTEyN30.FKIekAwXBPHRAf6ImjKHM_rKN9GrqLHcXMrpD4RpIB0",
+ * "user": {
+ *   "id": 3,
+ *   "firstName": null,
+ *   "lastName": null,
+ *   "email": null,
+ *   "username": "don",
+ *   "created_at": "2019-10-20T22:59:45.794Z",
+ *   "updated_at": "2019-10-20T22:59:45.794Z",
+ *   "roleId": 1
  * }
+ *}
  * @apiErrorExample {json} Username-Not-Found-Response
  * {
  *      "message": "Username is not in the system."
@@ -103,8 +133,22 @@ function login(req, res) {
     .then(user => {
       if (user.length !== 0) {
         if (bcrypt.compareSync(req.body.password, user[0].password)) {
-          const { password, ...validatedUser } = user[0];
-          res.json(validatedUser);
+          const token = generators.token(user);
+          const validatedUser = {
+            id: user[0].id,
+            firstName: user[0].firstName,
+            lastName: user[0].lastName,
+            email: user[0].email,
+            username: user[0].username,
+            created_at: user[0].created_at,
+            updated_at: user[0].updated_at,
+            roleId: user[0].roleId,
+          };
+          res.json({
+            message: `Welcome back ${validatedUser.username}!`,
+            token,
+            user: validatedUser,
+          });
         } else {
           res.status(401).json({ message: 'Incorrect Password' });
         }
