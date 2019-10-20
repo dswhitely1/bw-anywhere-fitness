@@ -5,6 +5,7 @@ exports.up = function(knex) {
       .string('name', 128)
       .unique()
       .notNullable();
+    tbl.timestamps(true, true);
   });
 };
 

@@ -22,6 +22,7 @@ exports.up = function(knex) {
     tbl.string('city', 128);
     tbl.string('state', 128);
     tbl.string('zipCode', 128);
+    tbl.timestamps(true, true);
   });
 };
 

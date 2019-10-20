@@ -6,6 +6,7 @@ exports.up = function(knex) {
       .notNullable()
       .unique();
     tbl.string('description', 128);
+    tbl.timestamps(true, true);
   });
 };
 
