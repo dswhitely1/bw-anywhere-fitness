@@ -6,4 +6,4 @@ function testRoute(req, res) {
 
 testRouter.get('/', testRoute);
 
-module.esxports = testRouter;
+module.exports = testRouter;
