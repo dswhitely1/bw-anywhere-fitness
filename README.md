@@ -1,4 +1,4 @@
-# Anytime Fitness v1.0.0
+# Anywhere Fitness v1.0.0
 
 Backend Project for Lambda&#39;s Build Week API Repository
 
