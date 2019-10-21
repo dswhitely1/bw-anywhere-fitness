@@ -16,9 +16,9 @@ function add(mapping) {
     .returning('*');
 }
 
-function remove(id) {
+function remove(classId, clientId) {
   return db('class_clients')
-    .where({ id })
+    .where({ classId, clientId })
     .del();
 }
 
