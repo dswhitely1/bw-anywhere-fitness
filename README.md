@@ -21,6 +21,7 @@ Backend Project for Lambda&#39;s Build Week API Repository
 - [User](#user)
 	- [Updates the Current Logged In User](#updates-the-current-logged-in-user)
 	- [Deletes the Current Logged In User](#deletes-the-current-logged-in-user)
+	- [](#)
 	
 
 
@@ -482,4 +483,11 @@ Success-Response:
 ```
 1
 ```
+## 
+
+<p>Retrieves the Current Users Signed up Classes</p>
+
+	GET /api/user/classes
+
+
 

@@ -2,6 +2,7 @@ const userRouter = require('express').Router();
 const Users = require('../../../data/models/users.model');
 const generators = require('../../utils/generators');
 const restricted = require('../../auth/restricted');
+const ClassClients = require('../../../data/models/classClients.model');
 /**
  * @api {put} /api/user Updates the Current Logged In User
  * @apiVersion 1.0.0
@@ -91,7 +92,31 @@ function deleteUser(req, res) {
     .then(count => res.json(count))
     .catch(err => res.status(500).json(err));
 }
+/**
+ * @api {get} /api/user/classes
+ * @apiVersion 1.0.0
+ * @apiGroup User
+ * @apiName getUserClasses
+ * @apiPermission token
+ * @apiDescription Retrieves the Current Users Signed up Classes
+ * @apiSuccess {Array} classes Retrieves all current classes signed up by the User
+ */
+function retrieveClasses(req, res) {
+  ClassClients.findBy({ clientId: req.user.id })
+    .then(classes => res.json(classes))
+    .catch(err => res.status(500).json(err));
+}
 
-userRouter.put('/', restricted, updateUser).delete('/', restricted, deleteUser);
+function addUserToClass(req, res) {
+  ClassClients.add({ classId: req.params.id, clientId: req.user.id })
+    .then(mapping => res.json(mapping))
+    .catch(err => res.status(500).json(err));
+}
+
+userRouter
+  .put('/', restricted, updateUser)
+  .delete('/', restricted, deleteUser)
+  .get('/classes', restricted, retrieveClasses)
+  .post('/classes/:id', restricted, addUserToClass);
 
 module.exports = userRouter;
