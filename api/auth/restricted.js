@@ -13,6 +13,6 @@ module.exports = (req, res, next) => {
       }
     });
   } else {
-    res.status(400).json({ message: 'No Token Provided' });
+    res.status(401).json({ message: 'UnAuthorized' });
   }
 };
