@@ -12,6 +12,12 @@ Backend Project for Lambda&#39;s Build Week API Repository
 	- [Add New Category](#add-new-category)
 	- [Updates Category based on provided Id](#updates-category-based-on-provided-id)
 	
+- [Classes](#classes)
+	- [Deletes Class based on provided Id](#deletes-class-based-on-provided-id)
+	- [Returns all classes](#returns-all-classes)
+	- [Add New Class](#add-new-class)
+	- [Updated Class with provided Id](#updated-class-with-provided-id)
+	
 - [User](#user)
 	- [Updates the Current Logged In User](#updates-the-current-logged-in-user)
 	- [Deletes the Current Logged In User](#deletes-the-current-logged-in-user)
@@ -263,6 +269,167 @@ Success-Response:
   "description": "Testing Update Router",
   "created_at": "2019-10-21T01:17:05.085Z",
   "updated_at": "2019-10-21T01:17:05.085Z"
+}
+```
+# Classes
+
+## Deletes Class based on provided Id
+
+
+
+	DELETE /api/classes/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| id			| integer			|  <p>The ID is passed in the URL</p>							|
+
+## Returns all classes
+
+
+
+	GET /api/category
+
+
+### Success Response
+
+Success-Response:
+
+```
+[
+ {
+   "id": 1,
+   "title": "Yoga",
+   "instructorId": 1,
+   "categoryId": 1,
+   "scheduleTime": null,
+   "address": null,
+   "city": null,
+   "state": null,
+   "zipCode": null,
+   "created_at": "2019-10-21T12:51:44.173Z",
+   "updated_at": "2019-10-21T12:51:44.173Z"
+ },
+ {
+   "id": 2,
+   "title": "Water Aerobics",
+   "instructorId": 1,
+   "categoryId": 2,
+   "scheduleTime": null,
+   "address": null,
+   "city": null,
+   "state": null,
+   "zipCode": null,
+   "created_at": "2019-10-21T12:51:44.173Z",
+   "updated_at": "2019-10-21T12:51:44.173Z"
+ }
+]
+```
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "Unauthroized"
+}
+```
+## Add New Class
+
+
+
+	POST /api/category
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| title			| String			|  <p>Class Title *Required</p>							|
+| instructorId			| Integer			|  <p>The Id of the Instructor *Required</p>							|
+| categoryId			| Integer			|  <p>The Id of the Category *Required</p>							|
+| scheduleTime			| Date			|  <p>The Date and Time of the class</p>							|
+| address			| String			|  <p>The Street Address of the class</p>							|
+| city			| String			|  <p>The City of the class</p>							|
+| state			| String			|  <p>The State of the class</p>							|
+| zipCode			| String			|  <p>The ZipCode fo the class</p>							|
+
+### Success Response
+
+Success-Response:
+
+```
+{
+ "id": 3,
+ "title": "A New Class",
+ "instructorId": 1,
+ "categoryId": 1,
+ "scheduleTime": null,
+ "address": null,
+ "city": null,
+ "state": null,
+ "zipCode": null,
+ "created_at": "2019-10-21T13:23:39.281Z",
+ "updated_at": "2019-10-21T13:23:39.281Z"
+}
+```
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "Unauthroized"
+}
+```
+## Updated Class with provided Id
+
+
+
+	PUT /api/classes/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| title			| String			|  <p>Class Title *Required</p>							|
+| instructorId			| Integer			|  <p>The Id of the Instructor *Required</p>							|
+| categoryId			| Integer			|  <p>The Id of the Category *Required</p>							|
+| scheduleTime			| Date			|  <p>The Date and Time of the class</p>							|
+| address			| String			|  <p>The Street Address of the class</p>							|
+| city			| String			|  <p>The City of the class</p>							|
+| state			| String			|  <p>The State of the class</p>							|
+| zipCode			| String			|  <p>The ZipCode fo the class</p>							|
+
+### Success Response
+
+Success-Response:
+
+```
+{
+ "id": 3,
+ "title": "An Updated Class",
+ "instructorId": 1,
+ "categoryId": 1,
+ "scheduleTime": null,
+ "address": null,
+ "city": null,
+ "state": null,
+ "zipCode": null,
+ "created_at": "2019-10-21T13:23:39.281Z",
+ "updated_at": "2019-10-21T13:23:39.281Z"
+}
+```
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "Unauthroized"
 }
 ```
 # User
