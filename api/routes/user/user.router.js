@@ -4,7 +4,17 @@ const generators = require('../../utils/generators');
 const restricted = require('../../auth/restricted');
 const ClassClients = require('../../../data/models/classClients.model');
 /**
+ *  @apiDefine UnAuthorized
+ *  @apiError UnAuthorized User is not Authorized
+ *  @apiErrorExample {json} Unauthorized-Response:
+ *  {
+ *      "message": "Unauthroized"
+ *  }
+ */
+
+/**
  * @api {put} /api/user Updates the Current Logged In User
+ * @apiUse UnAuthroized
  * @apiVersion 1.0.0
  * @apiName UpdateUser
  * @apiGroup User
@@ -77,6 +87,7 @@ function updateUser(req, res) {
 
 /**
  * @api {delete} /api/user Deletes the Current Logged In User
+ * @apiUse UnAuthorized
  * @apiVersion 1.0.0
  * @apiGroup User
  * @apiName deleteUser
@@ -94,12 +105,22 @@ function deleteUser(req, res) {
 }
 /**
  * @api {get} /api/user/classes Retrieve all Classes that the Current User is signed up for
+ * @apiUse UnAuthorized
  * @apiVersion 1.0.0
  * @apiGroup User
  * @apiName getUserClasses
  * @apiPermission token
  * @apiDescription Retrieves the Current Users Signed up Classes
  * @apiSuccess {Array} classes Retrieves all current classes signed up by the User
+ * @apiSuccessExample {json} Success-Response:
+ * [
+ *  {
+ *    "classId": 1,
+ *    "clientId": 3,
+ *    "created_at": "2019-10-21T16:56:56.379Z",
+ *    "updated_at": "2019-10-21T16:56:56.379Z"
+ *  }
+ * ]
  */
 function retrieveClasses(req, res) {
   ClassClients.findBy({ clientId: req.user.id })
@@ -108,26 +129,52 @@ function retrieveClasses(req, res) {
 }
 /**
  * @api {post} /api/user/classes/:id Signs the User up for the Provided Class Id
+ * @apiUse UnAuthorized
  * @apiVersion 1.0.0
  * @apiGroup User
  * @apiName postUserClasses
  * @apiPermission token
  * @apiDescription Signs an user up for a class based on the provided class Id
  * @apiSuccess {Object} classes Returns the Class Mapping
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *  "classId": 2,
+ *  "clientId": 3,
+ *  "created_at": "2019-10-21T19:00:55.322Z",
+ *  "updated_at": "2019-10-21T19:00:55.322Z"
+ * }
  */
 
 function addUserToClass(req, res) {
   ClassClients.add({ classId: req.params.id, clientId: req.user.id })
-    .then(mapping => res.json(mapping))
+    .then(mapping => res.json(mapping[0]))
     .catch(err => res.status(500).json(err));
 }
 
-function removeUserFromClass(req, res) {}
+/**
+ * @api {delete} /api/user/classes/:id Removes the User from the Provided Class Id
+ * @apiUse UnAuthorized
+ * @apiVersion 1.0.0
+ * @apiGroup User
+ * @apiName removeUserFromClass
+ * @apiPermission token
+ * @apiDescription Removes the User from the provided Class Id
+ * @apiSuccess {Integer} count The count of Records deleted
+ * @apiSuccessExample {Integer} Success-Response:
+ * 1
+ */
+
+function removeUserFromClass(req, res) {
+  ClassClients.remove(req.params.id, req.user.id)
+    .then(count => res.json(count))
+    .catch(err => res.status(500).json(err));
+}
 
 userRouter
   .put('/', restricted, updateUser)
   .delete('/', restricted, deleteUser)
   .get('/classes', restricted, retrieveClasses)
-  .post('/classes/:id', restricted, addUserToClass);
+  .post('/classes/:id', restricted, addUserToClass)
+  .delete('/classes/:id', restricted, removeUserFromClass);
 
 module.exports = userRouter;
