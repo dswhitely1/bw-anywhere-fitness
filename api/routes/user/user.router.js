@@ -14,7 +14,7 @@ const ClassClients = require('../../../data/models/classClients.model');
 
 /**
  * @api {put} /api/user Updates the Current Logged In User
- * @apiUse UnAuthroized
+ * @apiUse UnAuthorized
  * @apiVersion 1.0.0
  * @apiName UpdateUser
  * @apiGroup User
