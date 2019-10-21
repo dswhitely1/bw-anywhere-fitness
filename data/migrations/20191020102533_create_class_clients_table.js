@@ -1,6 +1,5 @@
 exports.up = function(knex) {
   return knex.schema.createTable('class_clients', tbl => {
-    tbl.increments();
     tbl
       .integer('classId')
       .notNullable()
@@ -18,6 +17,7 @@ exports.up = function(knex) {
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
     tbl.timestamps(true, true);
+    tbl.primary(['classID', 'clientId']);
   });
 };
 
