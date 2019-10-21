@@ -133,7 +133,7 @@ function login(req, res) {
     .then(user => {
       if (user.length !== 0) {
         if (bcrypt.compareSync(req.body.password, user[0].password)) {
-          const token = generators.token(user);
+          const token = generators.token(user[0]);
           const validatedUser = {
             id: user[0].id,
             firstName: user[0].firstName,
