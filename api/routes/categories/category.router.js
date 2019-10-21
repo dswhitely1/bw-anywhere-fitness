@@ -20,7 +20,7 @@ const restricted = require('../../auth/restricted');
  * }
  */
 /**
- * @api {get} /api/categories Returns all categories
+ * @api {get} /api/category Returns all categories
  * @apiUse UnAuthorized
  * @apiVersion 1.0.0
  * @apiName GetCategories
@@ -82,7 +82,7 @@ function allCategories(req, res) {
 }
 
 /**
- * @api {post} /api/categories Returns all categories
+ * @api {post} /api/category Add New Category
  * @apiUse UnAuthorized
  * @apiUse CategoryNameAlreadyTaken
  * @apiVersion 1.0.0
@@ -122,7 +122,7 @@ function addCategory(req, res) {
 }
 
 /**
- * @api {put} /api/categories/:id Returns all categories
+ * @api {put} /api/category/:id Updates Category based on provided Id
  * @apiVersion 1.0.0
  * @apiName PutCategories
  * @apiGroup Categories
@@ -149,7 +149,7 @@ function updateCategory(req, res) {
 }
 
 /**
- * @api {delete} /api/categories/:id Returns all categories
+ * @api {delete} /api/category/:id Deletes Category based on provided Id
  * @apiVersion 1.0.0
  * @apiName DeleteCategories
  * @apiGroup Categories
