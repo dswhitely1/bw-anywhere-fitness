@@ -4,6 +4,12 @@ function find() {
   return db('categories');
 }
 
+function findBy(filter) {
+  return db('categories')
+    .where(filter)
+    .returning('*');
+}
+
 function add(category) {
   return db('categories')
     .insert(category)
@@ -23,4 +29,4 @@ function remove(id) {
     .del();
 }
 
-module.exports = { find, add, update, remove };
+module.exports = { find, findBy, add, update, remove };
