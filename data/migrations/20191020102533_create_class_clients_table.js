@@ -1,5 +1,6 @@
 exports.up = function(knex) {
   return knex.schema.createTable('class_clients', tbl => {
+    tbl.increments();
     tbl
       .integer('classId')
       .notNullable()
