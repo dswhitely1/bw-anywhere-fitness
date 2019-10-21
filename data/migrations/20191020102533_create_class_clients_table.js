@@ -17,7 +17,7 @@ exports.up = function(knex) {
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
     tbl.timestamps(true, true);
-    tbl.primary(['classID', 'clientId']);
+    tbl.primary(['classId', 'clientId']);
   });
 };
 
