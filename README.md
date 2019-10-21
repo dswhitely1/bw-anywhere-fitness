@@ -21,7 +21,8 @@ Backend Project for Lambda&#39;s Build Week API Repository
 - [User](#user)
 	- [Updates the Current Logged In User](#updates-the-current-logged-in-user)
 	- [Deletes the Current Logged In User](#deletes-the-current-logged-in-user)
-	- [](#)
+	- [Retrieve all Classes that the Current User is signed up for](#retrieve-all-classes-that-the-current-user-is-signed-up-for)
+	- [Signs the User up for the Provided Class Id](#signs-the-user-up-for-the-provided-class-id)
 	
 
 
@@ -483,11 +484,18 @@ Success-Response:
 ```
 1
 ```
-## 
+## Retrieve all Classes that the Current User is signed up for
 
 <p>Retrieves the Current Users Signed up Classes</p>
 
 	GET /api/user/classes
+
+
+## Signs the User up for the Provided Class Id
+
+<p>Signs an user up for a class based on the provided class Id</p>
+
+	POST /api/user/classes/:id
 
 
 

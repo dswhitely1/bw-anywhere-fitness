@@ -93,7 +93,7 @@ function deleteUser(req, res) {
     .catch(err => res.status(500).json(err));
 }
 /**
- * @api {get} /api/user/classes
+ * @api {get} /api/user/classes Retrieve all Classes that the Current User is signed up for
  * @apiVersion 1.0.0
  * @apiGroup User
  * @apiName getUserClasses
@@ -106,12 +106,23 @@ function retrieveClasses(req, res) {
     .then(classes => res.json(classes))
     .catch(err => res.status(500).json(err));
 }
+/**
+ * @api {post} /api/user/classes/:id Signs the User up for the Provided Class Id
+ * @apiVersion 1.0.0
+ * @apiGroup User
+ * @apiName postUserClasses
+ * @apiPermission token
+ * @apiDescription Signs an user up for a class based on the provided class Id
+ * @apiSuccess {Object} classes Returns the Class Mapping
+ */
 
 function addUserToClass(req, res) {
   ClassClients.add({ classId: req.params.id, clientId: req.user.id })
     .then(mapping => res.json(mapping))
     .catch(err => res.status(500).json(err));
 }
+
+function removeUserFromClass(req, res) {}
 
 userRouter
   .put('/', restricted, updateUser)
