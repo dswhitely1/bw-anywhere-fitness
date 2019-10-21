@@ -1,6 +1,6 @@
-# Anytime Fitness v1.0.0
+# Anywhere Fitness v1.0.0
 
-Backend Project for Lambda&#39;s Build Week API Repository
+Backend Project for Lambda&#39;s Build Week API Repository, deployed Link is https://lambda-anywhere-fitness.herokuapp.com/
 
 - [Auth](#auth)
 	- [Logs an User In](#logs-an-user-in)
@@ -21,6 +21,9 @@ Backend Project for Lambda&#39;s Build Week API Repository
 - [User](#user)
 	- [Updates the Current Logged In User](#updates-the-current-logged-in-user)
 	- [Deletes the Current Logged In User](#deletes-the-current-logged-in-user)
+	- [Retrieve all Classes that the Current User is signed up for](#retrieve-all-classes-that-the-current-user-is-signed-up-for)
+	- [Signs the User up for the Provided Class Id](#signs-the-user-up-for-the-provided-class-id)
+	- [Removes the User from the Provided Class Id](#removes-the-user-from-the-provided-class-id)
 	
 
 
@@ -290,7 +293,7 @@ Success-Response:
 
 
 
-	GET /api/category
+	GET /api/classes
 
 
 ### Success Response
@@ -340,7 +343,7 @@ Unauthorized-Response:
 
 
 
-	POST /api/category
+	POST /api/classes
 
 
 ### Parameters
@@ -468,6 +471,15 @@ Success-Response:
  "roleId": 1
 }
 ```
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "Unauthroized"
+}
+```
 ## Deletes the Current Logged In User
 
 <p>Deletes the current logged in user</p>
@@ -481,5 +493,95 @@ Success-Response:
 
 ```
 1
+```
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "Unauthroized"
+}
+```
+## Retrieve all Classes that the Current User is signed up for
+
+<p>Retrieves the Current Users Signed up Classes</p>
+
+	GET /api/user/classes
+
+
+### Success Response
+
+Success-Response:
+
+```
+[
+ {
+   "classId": 1,
+   "clientId": 3,
+   "created_at": "2019-10-21T16:56:56.379Z",
+   "updated_at": "2019-10-21T16:56:56.379Z"
+ }
+]
+```
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "Unauthroized"
+}
+```
+## Signs the User up for the Provided Class Id
+
+<p>Signs an user up for a class based on the provided class Id</p>
+
+	POST /api/user/classes/:id
+
+
+### Success Response
+
+Success-Response:
+
+```
+{
+ "classId": 2,
+ "clientId": 3,
+ "created_at": "2019-10-21T19:00:55.322Z",
+ "updated_at": "2019-10-21T19:00:55.322Z"
+}
+```
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "Unauthroized"
+}
+```
+## Removes the User from the Provided Class Id
+
+<p>Removes the User from the provided Class Id</p>
+
+	DELETE /api/user/classes/:id
+
+
+### Success Response
+
+Success-Response:
+
+```
+1
+```
+### Error Response
+
+Unauthorized-Response:
+
+```
+{
+    "message": "Unauthroized"
+}
 ```
 

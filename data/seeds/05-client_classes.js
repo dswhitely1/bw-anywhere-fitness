@@ -4,6 +4,9 @@ exports.seed = function(knex) {
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex('class_clients').insert([{ classId: 1, clientId: 2 }]);
+      return knex('class_clients').insert([
+        { classId: 1, clientId: 2 },
+        { classId: 2, clientId: 2 },
+      ]);
     });
 };
