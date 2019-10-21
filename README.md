@@ -1,10 +1,14 @@
-# anytimefitness v1.0.0
+# Anytime Fitness v1.0.0
 
-AnyTime Fitness for Lambda&#39;s Build Week API Repository
+Backend Project for Lambda&#39;s Build Week API Repository
 
 - [Auth](#auth)
 	- [Logs an User In](#logs-an-user-in)
 	- [Registers a New User](#registers-a-new-user)
+	
+- [User](#user)
+	- [Updates the Current Logged In User](#updates-the-current-logged-in-user)
+	- [Deletes the Current Logged In User](#deletes-the-current-logged-in-user)
 	
 
 
@@ -102,5 +106,55 @@ Username-Already-Taken
 {
      "message": "Username is already taken"
 }
+```
+# User
+
+## Updates the Current Logged In User
+
+<p>Updates the current logged in user</p>
+
+	PUT /api/user
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| username			| String			|  <p>The Users username</p>							|
+| password			| String			|  <p>The Users password</p>							|
+| firstName			| String			|  <p>The Users first name</p>							|
+| lastName			| String			|  <p>The Users last name</p>							|
+| email			| String			|  <p>The Users email</p>							|
+| roleId			| Integer			|  <p>The Users Role, 1 for Instructor, 2 for Client</p>							|
+
+### Success Response
+
+Success-Response:
+
+```
+{
+ "id": 3,
+ "firstName": "Donald",
+ "lastName": null,
+ "email": null,
+ "username": "don",
+ "created_at": "2019-10-20T22:59:45.794Z",
+ "updated_at": "2019-10-20T22:59:45.794Z",
+ "roleId": 1
+}
+```
+## Deletes the Current Logged In User
+
+<p>Deletes the current logged in user</p>
+
+	DELETE /api/user
+
+
+### Success Response
+
+Success-Response:
+
+```
+1
 ```
 

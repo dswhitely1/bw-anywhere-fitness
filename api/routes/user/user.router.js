@@ -9,11 +9,11 @@ const restricted = require('../../auth/restricted');
  * @apiGroup User
  * @apiPermission token
  * @apiDescription Updates the current logged in user
- * @apiParam {String} username The New Users username
- * @apiParam {String} password The New Users password
- * @apiParam {String} firstName The New Users first name
- * @apiParam {String} lastName The New Users last name
- * @apiParam {String} email The New Users email
+ * @apiParam {String} username The Users username
+ * @apiParam {String} password The Users password
+ * @apiParam {String} firstName The Users first name
+ * @apiParam {String} lastName The Users last name
+ * @apiParam {String} email The Users email
  * @apiParam {Integer} roleId The Users Role, 1 for Instructor, 2 for Client
  * @apiParamExample {json} Sample-Request:
  * {
@@ -77,10 +77,13 @@ function updateUser(req, res) {
 /**
  * @api {delete} /api/user Deletes the Current Logged In User
  * @apiVersion 1.0.0
+ * @apiGroup User
  * @apiName deleteUser
  * @apiPermission token
  * @apiDescription Deletes the current logged in user
- *
+ * @apiSuccess {Integer} count The count of Records deleted
+ * @apiSuccessExample {Integer} Success-Response:
+ * 1
  */
 
 function deleteUser(req, res) {
