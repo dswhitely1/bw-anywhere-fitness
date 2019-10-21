@@ -11,7 +11,7 @@ const restricted = require('../../auth/restricted');
  *  }
  */
 /**
- * @api {get} /api/category Returns all classes
+ * @api {get} /api/classes Returns all classes
  * @apiUse UnAuthorized
  * @apiVersion 1.0.0
  * @apiName GetClasses
@@ -57,7 +57,7 @@ function allClasses(req, res) {
 }
 
 /**
- * @api {post} /api/category Add New Class
+ * @api {post} /api/classes Add New Class
  * @apiUse UnAuthorized
  * @apiVersion 1.0.0
  * @apiName PostClasses
