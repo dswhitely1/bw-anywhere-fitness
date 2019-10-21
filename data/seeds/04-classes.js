@@ -5,8 +5,8 @@ exports.seed = function(knex) {
     .then(function() {
       // Inserts seed entries
       return knex('classes').insert([
-        { instructorId: 1, categoryId: 1 },
-        { instructorId: 1, categoryId: 2 },
+        { title: 'Yoga', instructorId: 1, categoryId: 1 },
+        { title: 'Water Aerobics', instructorId: 1, categoryId: 2 },
       ]);
     });
 };
