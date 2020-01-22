@@ -1,6 +1,6 @@
 const authRouter = require('express').Router();
 const bcrypt = require('bcryptjs');
-const Users = require('../../../data/models/users.model');
+const { Users } = require('../../../data/models/base.model');
 const generators = require('../../utils/generators');
 
 /**

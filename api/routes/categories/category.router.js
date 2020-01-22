@@ -1,5 +1,5 @@
 const categoryRouter = require('express').Router();
-const Categories = require('../../../data/models/categories.model');
+const { Categories } = require('../../../data/models/base.model');
 const restricted = require('../../auth/restricted');
 
 /**

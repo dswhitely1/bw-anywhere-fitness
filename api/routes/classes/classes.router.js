@@ -1,5 +1,5 @@
 const classesRouter = require('express').Router();
-const Classes = require('../../../data/models/classes.model');
+const { Classes } = require('../../../data/models/base.model');
 const restricted = require('../../auth/restricted');
 
 /**

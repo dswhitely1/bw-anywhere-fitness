@@ -1,8 +1,8 @@
 const userRouter = require('express').Router();
-const Users = require('../../../data/models/users.model');
+const { Users, ClassClients } = require('../../../data/models/base.model');
 const generators = require('../../utils/generators');
 const restricted = require('../../auth/restricted');
-const ClassClients = require('../../../data/models/classClients.model');
+
 /**
  *  @apiDefine UnAuthorized
  *  @apiError UnAuthorized User is not Authorized

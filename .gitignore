@@ -104,3 +104,4 @@ public
 apidoc/
 apidoc.json
 data/test.db3
+.idea
